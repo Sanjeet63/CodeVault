@@ -4,16 +4,16 @@ Trie::Trie() {
     root = new TrieNode();
 }
 
-void Trie::insert(string word, int snippetId) {
+void Trie::insert(string word, int id) {
     TrieNode* node = root;
     for (char c : word) {
         if (!node->children.count(c)) {
             node->children[c] = new TrieNode();
         }
         node = node->children[c];
-        node->snippetIds.push_back(snippetId); // for fast access
+        node->snippetIds.push_back(id); 
     }
-    node->isEndOfWord = true;
+    node->end = true;
 }
 
 vector<int> Trie::searchByPrefix(string prefix) {
@@ -22,5 +22,5 @@ vector<int> Trie::searchByPrefix(string prefix) {
         if (!node->children.count(c)) return {};
         node = node->children[c];
     }
-    return node->snippetIds;  // all IDs matching this prefix
+    return node->snippetIds;
 }

@@ -6,15 +6,15 @@ using namespace std;
 
 struct TrieNode {
     unordered_map<char, TrieNode*> children;
-    bool isEndOfWord = false;
-    vector<int> snippetIds; // list of snippet IDs with this prefix
+    bool end = false;
+    vector<int> snippetIds; 
 };
 
 class Trie {
 private:
     TrieNode* root;
 
-    void dfs(TrieNode* node, vector<int>& result);
+    void dfs(TrieNode* node, vector<int>& res);
 
 public:
     Trie();

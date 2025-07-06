@@ -16,7 +16,7 @@ void SnippetManager::editSnippet()
     {
         if (s.id == id)
         {
-            versionManager.saveOldVersion(s); // Save current version
+            versionManager.saveOldVersion(s);
 
             string newTitle, newCode, tagLine;
             vector<string> newTags;
@@ -40,14 +40,14 @@ void SnippetManager::editSnippet()
             s.tags = newTags;
             s.timestamp = time(nullptr);
 
-            trie.insert(newTitle, s.id); // update title in Trie too
+            trie.insert(newTitle, s.id); 
 
-            cout << "✅ Snippet updated. Old version saved.\n";
+            cout << "\n Snippet updated. Old version saved.\n";
             return;
         }
     }
 
-    cout << "❌ Snippet ID not found.\n";
+    cout << "\n Snippet ID not found.\n";
 }
 
 void SnippetManager::viewAll()
@@ -69,11 +69,11 @@ void SnippetManager::searchByTitlePrefix()
 
     if (ids.empty())
     {
-        cout << "❌ No matching snippets found.\n";
+        cout << "No matching snippets found.\n";
         return;
     }
 
-    cout << "\n📄 Matching Snippets:\n";
+    cout << "\n Matching Snippets:\n";
     for (int id : ids)
     {
         for (auto &s : snippets)
@@ -119,9 +119,9 @@ void SnippetManager::addSnippet()
     Snippet s(nextId++, title, code, tags);
     snippets.push_back(s);
 
-    trie.insert(title, s.id); // also add to Trie
+    trie.insert(title, s.id); 
 
-    cout << "✅ Snippet added successfully.\n";
+    cout << "Snippet added successfully.\n";
 }
 void SnippetManager::checkForDuplicate()
 {
@@ -134,11 +134,11 @@ void SnippetManager::checkForDuplicate()
 
     if (matches.empty())
     {
-        cout << "✅ No significant duplicate found.\n";
+        cout << "No significant duplicate found.\n";
     }
     else
     {
-        cout << "⚠️  Potential duplicates found:\n";
+        cout << "Potential duplicates found:\n";
         for (auto &match : matches)
         {
             int id = match.first;
@@ -151,7 +151,7 @@ void SnippetManager::exportSnippetsToFile() {
     ofstream out("snippets.json");
 
     if (!out.is_open()) {
-        cout << "❌ Failed to open file for writing.\n";
+        cout << "Failed to open file for writing.\n";
         return;
     }
 
@@ -180,7 +180,7 @@ void SnippetManager::exportSnippetsToFile() {
     out << "]\n";
     out.close();
 
-    cout << "✅ Snippets exported to 'snippets.json'\n";
+    cout << "\n Snippets exported to 'snippets.json'\n";
 }
 void SnippetManager::deleteSnippetById() {
     int id;
@@ -189,7 +189,6 @@ void SnippetManager::deleteSnippetById() {
 
     bool found = false;
 
-    // Delete from main list
     for (auto it = snippets.begin(); it != snippets.end(); ++it) {
         if (it->id == id) {
             snippets.erase(it);
@@ -199,14 +198,11 @@ void SnippetManager::deleteSnippetById() {
     }
 
     if (!found) {
-        cout << "❌ Snippet ID not found.\n";
+        cout << "Snippet ID not found.\n";
         return;
     }
 
-    // (Optional) Version history cleanup
-    // versionManager.deleteHistory(id); // only if implemented
-
-    cout << "🗑️ Snippet ID " << id << " deleted.\n";
+    cout << " Snippet ID " << id << " deleted.\n";
 }
 void SnippetManager::searchByTag() {
     cin.ignore();
@@ -215,7 +211,7 @@ void SnippetManager::searchByTag() {
     getline(cin, targetTag);
 
     bool found = false;
-    cout << "\n📄 Snippets with tag \"" << targetTag << "\":\n";
+    cout << "\n Snippets with tag \"" << targetTag << "\":\n";
 
     for (const auto& s : snippets) {
         if (find(s.tags.begin(), s.tags.end(), targetTag) != s.tags.end()) {
@@ -225,6 +221,6 @@ void SnippetManager::searchByTag() {
     }
 
     if (!found) {
-        cout << "❌ No snippets found with tag \"" << targetTag << "\".\n";
+        cout << "\n No snippets found with tag \"" << targetTag << "\".\n";
     }
 }

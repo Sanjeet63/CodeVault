@@ -15,7 +15,7 @@ struct VersionNode {
 
 class VersionManager {
 private:
-    unordered_map<int, VersionNode*> versionMap; // current head per snippet ID
+    unordered_map<int, VersionNode*> mpp; 
 
 public:
     void saveOldVersion(Snippet s);
